@@ -11,3 +11,63 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.homeCard{
+  width: 150px !important;
+  height: 225px;
+}
+.mainImg{
+height: 50vh;
+background-position: center,top;
+background-size: cover;
+}
+.mainText{
+  background-image: linear-gradient(to right, rgba(7.84%, 13.33%, .98%, 0.50) 150px, rgba(7.84%, 13.33%, 10.98%, 0.54) 80%) !important ;
+
+}
+
+.castImg{
+  width: 140px;
+  height: 175px;
+}
+.castCard{
+  width: 140px;
+  height:250px;
+  margin-bottom: 15px;
+  border: 1px solid rgb(198, 196, 196);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  overflow:hidden;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.castCard::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
+}
+.detailsImg{
+  height: 500px;
+}
+.backgroundImg{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right top;
+}
+.movieInfoCard{
+  background-image: linear-gradient(to right, rgba(7.84%, 13.33%, 10.98%, 1.00) 150px, rgba(7.84%, 13.33%, 10.98%, 0.84) 50%) !important ;
+
+}
+.homeText{
+  position: absolute;
+  top: 50px;
+  width: 400px;
+margin-left: 2rem;
+}
+.homeForm{
+  position: absolute;
+  top: 20px;
+  width: 90%;
+  margin-left: 2rem;
+}
+
+
