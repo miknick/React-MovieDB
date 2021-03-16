@@ -1,20 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import React, { useState, useEffect, useRef } from 'react'
+import { Col, Container, Row, Button } from 'react-bootstrap'
 import { useLocation } from "react-router-dom"
 import Cast from './Cast'
+import { useAuth } from "../Contexts/AuthContext"
+import { db } from "../firebase"
 function MovieDetails() {
     const location = useLocation()
+    const { currentUser } = useAuth()
     const [movie, setMovie] = useState()
     const [imgUrl, setImgUrl] = useState()
     const [backgroundImg, setBackgroundImg] = useState()
+    function handleClick() {
+        db.collection("Users").get()
+            .then(snapshot => {
+                snapshot.forEach(user => {
+                    const data = user.data()
+                    if (currentUser.email === (data.email)) {
+                        const watchlist = data.watchlist
+                        watchlist.push(movie.id)
+                        db.collection("Users").doc(user.id).update({
+                            watchlist: watchlist
+                        })
+                        console.log(data)
+
+                    }
+                })
+            })
+    }
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${location.props.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
             .then(response => response.json())
             .then(response => {
                 setImgUrl("https://image.tmdb.org/t/p/w500/" + response.poster_path)
                 setBackgroundImg("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" + response.backdrop_path)
-                // `linear-gradient(to right, rgba(${primaryColor.join()}, 1.00) 150px, rgba(${primaryColor.join()}, 0.84) 50%)
-                // ,url(${backgroundImg})`
                 setMovie(response)
             })
     }, [location])
@@ -53,7 +71,14 @@ function MovieDetails() {
                             <h5 className="text-white-50 ml-1" >{movie.tagline}</h5>
                             <h5>Overview</h5>
                             <p >{movie.overview} </p>
+                            <Row className="ml-1" >
+                                <Button></Button>
+                                {currentUser && <Button onClick={handleClick} >Add to watchlist</Button>}
+
+                            </Row>
                         </Col>
+
+
                     </Row>
 
 

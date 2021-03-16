@@ -1,15 +1,18 @@
 import firebase from "firebase/app"
 import "firebase/auth"
-const app = firebase.initializeApp({
-    apiKey: "AIzaSyDVhhqBnV-eR6CE3Fiw_CHggK78rETiIhw",
-    authDomain: "movie-finder-dev.firebaseapp.com",
-    projectId: "movie-finder-dev",
-    storageBucket: "movie-finder-dev.appspot.com",
-    messagingSenderId: "69807167044",
-    appId: "1:69807167044:web:489792512be76535cc4e11"
+import "firebase/firestore"
 
-})
-
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_APP_ID,
+    appId: process.env.REACT_APP_MESSAGING_APP_ID,
+}
+const app = firebase.initializeApp(firebaseConfig)
 export const auth = app.auth()
+export const db = app.firestore()
+
 export default app
 

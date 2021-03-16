@@ -12,7 +12,12 @@ function BasicNavbar(props) {
                 <Link to="/" className="nav-link  text-light">Home</Link>
 
                 {currentUser ?
-                    <Link className="nav-link  text-light" to="/account">Account</Link>
+                    <div className="d-flex">
+                        <Link className="nav-link  text-light" to="/account">Account</Link>
+                        <Link to="/watchlist" className="nav-link text-light" > Watchlist</Link>
+
+                    </div>
+
                     : <div className="d-flex" >
                         <Link replace className="nav-link  text-light" to="/login">Login</Link>
                         <Link replace className="nav-link  text-light" to="/signup">Sign Up</Link>
@@ -21,8 +26,7 @@ function BasicNavbar(props) {
 
 
 
-                <Link to="/watchlist" className="nav-link text-light" >
-                    Watchlist <Badge id="navBadge" variant="light" ></Badge> </Link>
+
             </Nav>
         </Navbar>
     )

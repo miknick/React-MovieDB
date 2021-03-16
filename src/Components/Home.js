@@ -3,22 +3,16 @@ import Trending from './Trending'
 import { Col, Container, Form, Row, Button } from "react-bootstrap"
 import NowPlaying from './NowPlaying'
 import { Link, useHistory } from 'react-router-dom'
+import SearchBar from './SearchBar'
 
 function Home() {
     const [mainImg, setMainImg] = useState("")
     const [loading, setLoading] = useState(true)
-    const [search, setSearch] = useState("")
-    const history = useHistory()
+
     function getRandomMovieImage(path) {
         setMainImg(`https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${path}`)
     }
-    function handleSubmit(e) {
-        e.preventDefault()
-        history.push(`/search-${search}`)
-    }
-    function handleChange(e) {
-        setSearch(e.target.value)
-    }
+
     return (
 
         < div >
@@ -30,11 +24,7 @@ function Home() {
                     </Col>
 
                     <Col >
-                        <Form onSubmit={handleSubmit} className="d-flex homeForm" >
-                            <Form.Control value={search} onChange={handleChange}
-                                placeholder="Search a Movie" ></Form.Control>
-                            <Button type="submit"  >Search</Button>
-                        </Form>
+                        <SearchBar styleClass="homeForm"></SearchBar>
                     </Col>
 
 

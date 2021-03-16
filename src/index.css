@@ -1,3 +1,15 @@
+@media (max-width:600px) {
+  .searchOverview{
+    visibility: hidden;
+  }
+
+}
+@media(max-width:750px){
+  #watchlistCard{
+    flex-direction: column !important;
+ 
+   }
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -54,7 +66,7 @@ background-size: cover;
   background-position: right top;
 }
 .movieInfoCard{
-  background-image: linear-gradient(to right, rgba(7.84%, 13.33%, 10.98%, 1.00) 150px, rgba(7.84%, 13.33%, 10.98%, 0.84) 50%) !important ;
+  background-image: linear-gradient(to right, rgba(7.84%, 13.33%, 10.98%,0.50) 150px, rgba(7.84%, 13.33%, 10.98%, 0.64) 50%) !important ;
 
 }
 .homeText{
@@ -69,5 +81,34 @@ margin-left: 2rem;
   width: 90%;
   margin-left: 2rem;
 }
+.searchCard{
+  height: 150px ;
+  
+}
+.searchImg{
+  width: 100px !important;
+  height: 150px !important;
+}
 
-
+.searchOverviewDiv{
+  width: 500px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.searchOverviewText{
+  max-width: 800px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.resultsForm{
+  margin-top: 1rem;
+}
+.watchlistImg{
+  width: 200px !important;
+  height: 250px !important;
+}

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Container, Alert, Button } from 'react-bootstrap'
 import { useAuth } from "../Contexts/AuthContext"
 import { useHistory } from "react-router-dom"
+import { db } from '../firebase'
 function Account() {
     const [error, setError] = useState()
     const { currentUser, logout } = useAuth()

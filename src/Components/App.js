@@ -7,6 +7,7 @@ import Login from "./Login";
 import Account from "./Account";
 import MovieDetails from "./MovieDetails";
 import SearchResults from "./SearchResults"
+import Watchlist from "./Watchlist";
 function App() {
   return (
     <AuthProvider>
@@ -31,7 +32,9 @@ function App() {
         <Route path="/search-:movie">
           <SearchResults></SearchResults>
         </Route>
-
+        <Route path="/watchlist">
+          <Watchlist></Watchlist>
+        </Route>
       </Switch>
 
     </AuthProvider>

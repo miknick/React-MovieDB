@@ -32,11 +32,11 @@ function Trending(props) {
                 </Link>
                 <h6>{movie.vote_average === 0 ? movie.release_date
                     : movie.vote_average}</h6>
-                <Link to={{
+                <Link className="nav-link p-0 m-0" to={{
                     pathname: `/${movie.id}-details`,
                     props: { id: movie.id }
                 }}>
-                    <h6 className="text-dark">{movie.original_title}</h6>
+                    <h6 className="text-dark" >{movie.original_title}</h6>
 
                 </Link>
 
