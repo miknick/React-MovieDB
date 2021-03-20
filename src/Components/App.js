@@ -26,7 +26,7 @@ function App() {
         <Route path="/account">
           <Account ></Account>
         </Route>
-        <Route path="/:id-details">
+        <Route path="/details-:id">
           <MovieDetails></MovieDetails>
         </Route>
         <Route path="/search-:movie">

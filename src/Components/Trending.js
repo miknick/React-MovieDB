@@ -1,3 +1,4 @@
+import { getByPlaceholderText } from '@testing-library/dom'
 import React, { useEffect, useState } from 'react'
 import { Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
@@ -20,21 +21,20 @@ function Trending(props) {
 
     }, [trendingMovies])
     const component = trendingMovies && trendingMovies.map((movie) => {
-        const imgUrl = ("https://image.tmdb.org/t/p/w500/" + movie.poster_path)
+        const imgUrl = ("https://image.tmdb.org/t/p/w200/" + movie.poster_path)
 
         return (
-            <div className="mr-2 " key={movie.id} >
+            <div className="mr-2 text-center " key={movie.id} >
                 <Link to={{
-                    pathname: `/${movie.id}-details`,
-                    props: { id: movie.id }
+                    pathname: `/details-${movie.id}`,
                 }}>
-                    <img className="homeCard rounded" src={imgUrl} alt={movie.original_title}></img>
+                    <img className="homeCard rounded" src={imgUrl ? imgUrl : "placeholder.png"}
+                        alt={movie.original_title}></img>
                 </Link>
                 <h6>{movie.vote_average === 0 ? movie.release_date
                     : movie.vote_average}</h6>
                 <Link className="nav-link p-0 m-0" to={{
-                    pathname: `/${movie.id}-details`,
-                    props: { id: movie.id }
+                    pathname: `/details-${movie.id}`,
                 }}>
                     <h6 className="text-dark" >{movie.original_title}</h6>
 

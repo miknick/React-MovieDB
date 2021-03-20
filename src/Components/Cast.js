@@ -9,9 +9,11 @@ function Cast(props) {
             .then(response => setCredits(response))
     }, [props])
     const castComponent = credits && credits.cast.map((person) => {
-        const imgUrl = `https://www.themoviedb.org/t/p/w500/${person.profile_path}`
+        const imgUrl = person.profile_path
+            ? `https://www.themoviedb.org/t/p/w500/${person.profile_path}`
+            : "placeholder.png"
         return (
-            <Container key={person.id}>
+            <Container key={Math.random()}>
                 <div className="castCard  " >
                     <img className="castImg h-70" src={imgUrl}></img>
                     <p className="mx-1 my-0" ><strong> {person.name}</strong></p>
@@ -29,5 +31,4 @@ function Cast(props) {
         </Container>
     )
 }
-
 export default Cast

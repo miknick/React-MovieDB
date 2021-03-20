@@ -7,11 +7,23 @@ function Watchlist() {
     const { currentUser } = useAuth()
     const [watchlist, setWatchlist] = useState()
     function handleRemove(id) {
-        console.log(id)
+        const updatedWatchlist = watchlist.filter(movieId => movieId !== id)
+        db.collection("Users").get()
+            .then(snapshot => {
+                snapshot.forEach(user => {
+                    const data = user.data()
+                    if (currentUser.email === (data.email)) {
+                        db.collection("Users").doc(user.id).update({
+                            watchlist: updatedWatchlist
+                        })
+                    }
+                })
+            })
+        setWatchlist(updatedWatchlist)
+
     }
     useEffect(() => {
-        const ref = db.collection("Users");
-        ref.get()
+        db.collection("Users").get()
             .then(snapshot => {
                 snapshot.forEach(user => {
                     const data = user.data()
@@ -23,7 +35,7 @@ function Watchlist() {
     }, [])
     const component = watchlist && watchlist.map(id => {
         return (<WatchlistCard handleRemove={handleRemove}
-            id={id} ></WatchlistCard>)
+            key={id} id={id} ></WatchlistCard>)
     })
     return (
         <div>

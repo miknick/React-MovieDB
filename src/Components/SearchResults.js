@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Col, CardImg, Container, Row } from 'react-bootstrap'
+import { Card, Container } from 'react-bootstrap'
 import { Link, useLocation } from "react-router-dom"
 import SearchBar from "./SearchBar"
 function SearchResults() {
@@ -19,21 +19,20 @@ function SearchResults() {
             <Card key={movie.id} className=" overflow-hidden searchCard mt-2  flex-row 
             ">
                 <Link to={{
-                    pathname: `/${movie.id}-details`,
-                    props: { id: movie.id }
+                    pathname: `/details-${movie.id}`,
                 }} >
                     <Card.Img
                         className="searchImg"
-                        src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
+                        src={movie.poster_path
+                            ? "https://image.tmdb.org/t/p/w500/" + movie.poster_path
+                            : "placeholder.png"}
                         alt={movie.original_title + " Poster"} />
                 </Link>
 
                 <Card.Body  >
                     <Link className="nav-link p-0 m-0" to={{
-                        pathname: `/${movie.id}-details`,
-                        props: { id: movie.id }
+                        pathname: `/details-${movie.id}`,
                     }}>
-
                         <h4 className="text-dark" >{movie.original_title}</h4>
                     </Link>
                     <p style={{ fontSize: "1.2rem" }} className="text-muted">

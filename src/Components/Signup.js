@@ -12,6 +12,10 @@ function Signup() {
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    let letters = "0123456789ABCDEF";
+    let color = '#';
+    for (let i = 0; i < 6; i++)
+        color += letters[(Math.floor(Math.random() * 15))];
     async function handleSubmit(e) {
         e.preventDefault()
         if (passwordRef.current.value !== passwordConfirmRef.current.value)
@@ -23,7 +27,9 @@ function Signup() {
             db.collection("Users")
                 .add({
                     email: emailRef.current.value,
-                    watchlist: []
+                    watchlist: [],
+                    ratings: [],
+                    profileColor: color
                 })
             setLoading(false)
             history.push("/")

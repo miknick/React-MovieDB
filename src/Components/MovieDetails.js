@@ -1,40 +1,55 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Col, Container, Row, Button } from 'react-bootstrap'
-import { useLocation } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 import Cast from './Cast'
 import { useAuth } from "../Contexts/AuthContext"
 import { db } from "../firebase"
+import StarRating from "./StarRating"
 function MovieDetails() {
     const location = useLocation()
     const { currentUser } = useAuth()
     const [movie, setMovie] = useState()
     const [imgUrl, setImgUrl] = useState()
     const [backgroundImg, setBackgroundImg] = useState()
-    function handleClick() {
-        db.collection("Users").get()
-            .then(snapshot => {
-                snapshot.forEach(user => {
-                    const data = user.data()
-                    if (currentUser.email === (data.email)) {
-                        const watchlist = data.watchlist
-                        watchlist.push(movie.id)
-                        db.collection("Users").doc(user.id).update({
-                            watchlist: watchlist
-                        })
-                        console.log(data)
-
-                    }
+    const history = useHistory()
+    function handleWatchlist() {
+        if (currentUser) {
+            db.collection("Users").get()
+                .then(snapshot => {
+                    snapshot.forEach(user => {
+                        const data = user.data()
+                        if (currentUser.email === (data.email)) {
+                            const watchlist = data.watchlist
+                            if (watchlist.every(id => id !== movie.id)) {
+                                watchlist.push(movie.id)
+                            }
+                            db.collection("Users").doc(user.id).update({
+                                watchlist: watchlist
+                            })
+                        }
+                    })
                 })
-            })
+        }
+        else {
+            history.push("/login")
+        }
     }
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${location.props.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
+
+        fetch(`https://api.themoviedb.org/3/movie/${location.pathname.split("-")[1]}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
             .then(response => response.json())
             .then(response => {
-                setImgUrl("https://image.tmdb.org/t/p/w500/" + response.poster_path)
-                setBackgroundImg("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" + response.backdrop_path)
+                if (response.poster_path)
+                    setImgUrl("https://image.tmdb.org/t/p/w500/" + response.poster_path)
+                else
+                    setImgUrl("placeholder.png")
+                if (response.backdrop_path)
+                    setBackgroundImg("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" + response.backdrop_path)
                 setMovie(response)
             })
+
+
+
     }, [location])
 
     function handleRuntime(num) {
@@ -68,12 +83,13 @@ function MovieDetails() {
 
                             </Row>
 
+                            <StarRating id={movie.id} ></StarRating>
                             <h5 className="text-white-50 ml-1" >{movie.tagline}</h5>
                             <h5>Overview</h5>
                             <p >{movie.overview} </p>
                             <Row className="ml-1" >
-                                <Button></Button>
-                                {currentUser && <Button onClick={handleClick} >Add to watchlist</Button>}
+
+                                <Button onClick={handleWatchlist} >Add to watchlist</Button>
 
                             </Row>
                         </Col>

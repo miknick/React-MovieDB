@@ -2,12 +2,15 @@ import { Navbar, Nav, Badge } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useAuth } from "../Contexts/AuthContext"
 import React from "react"
+import SearchBar from "./SearchBar"
 function BasicNavbar(props) {
     const { currentUser } = useAuth()
     return (
-        <Navbar className="top " bg="dark">
+        <Navbar className="top " style={{
+            backgroundColor: "#000"
+        }}>
             <Link to="/" className="nav-link  text-light">RMDB</Link>
-            <Nav className="ml-auto  ">
+            <Nav className="ml-auto   ">
 
                 <Link to="/" className="nav-link  text-light">Home</Link>
 
@@ -23,12 +26,9 @@ function BasicNavbar(props) {
                         <Link replace className="nav-link  text-light" to="/signup">Sign Up</Link>
 
                     </div>}
-
-
-
-
             </Nav>
-        </Navbar>
+
+        </Navbar >
     )
 
 }
