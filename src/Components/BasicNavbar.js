@@ -1,8 +1,7 @@
-import { Navbar, Nav, Badge } from "react-bootstrap"
+import { Navbar, Nav } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useAuth } from "../Contexts/AuthContext"
 import React from "react"
-import SearchBar from "./SearchBar"
 function BasicNavbar(props) {
     const { currentUser } = useAuth()
     return (

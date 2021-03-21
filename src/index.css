@@ -4,6 +4,22 @@
   }
  
 }
+@media(max-width:500px){
+  .homeText{
+    position: relative !important;
+  }
+  .homeForm{
+    position: relative !important; 
+  }
+  .detailsImg{
+    margin-left: 2rem;
+  }
+}
+@media(max-width:400px){
+  .detailsImg{
+    margin-left: 0 !important;
+  }
+}
 @media(max-width:550px){
   #watchlistInfo{
     flex-direction: column !important;
@@ -14,6 +30,7 @@
     flex-direction: column !important;
     justify-self: center !important;
    }
+  
 }
 body {
   margin: 0;
@@ -77,8 +94,8 @@ background-size: cover;
 }
 .homeText{
   position: absolute;
-  top: 50px;
-  width: 400px;
+  top: 90px;
+  max-width: 400px;
 margin-left: 2rem;
 }
 .homeForm{

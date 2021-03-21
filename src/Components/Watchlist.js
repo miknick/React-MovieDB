@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Container, Button } from 'react-bootstrap'
 import { useAuth } from '../Contexts/AuthContext'
 import { db } from "../firebase"
 import WatchlistCard from "./WatchlistCard"
+import LoadingScreen from "react-loading-screen"
 function Watchlist() {
     const { currentUser } = useAuth()
     const [watchlist, setWatchlist] = useState()
+    const [loading, setLoading] = useState(true)
     function handleRemove(id) {
         const updatedWatchlist = watchlist.filter(movieId => movieId !== id)
         db.collection("Users").get()
@@ -29,6 +30,7 @@ function Watchlist() {
                     const data = user.data()
                     if (currentUser.email === (data.email)) {
                         setWatchlist(data.watchlist)
+                        setLoading(false)
                     }
                 })
             })
@@ -38,9 +40,15 @@ function Watchlist() {
             key={id} id={id} ></WatchlistCard>)
     })
     return (
-        <div>
-            {component}
-        </div>
+        <LoadingScreen loading={loading}
+            bgColor='#f1f1f1'
+            spinnerColor='#9ee5f8'
+            textColor='#676767'
+            text='Loading'
+        >
+
+            <div>{component}</div>
+        </LoadingScreen>
     )
 }
 

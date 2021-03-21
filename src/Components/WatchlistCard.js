@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Button, Container } from "react-bootstrap"
-import StarRating from './StarRating'
 import { Link } from "react-router-dom"
+import { LazyLoadImage } from "react-lazy-load-image-component"
+
 function WatchlistCard(props) {
     const [movie, setMovie] = useState()
     useEffect(() => {
-        {
-            fetch(`https://api.themoviedb.org/3/movie/${props.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
-                .then(response => response.json())
-                .then(response => setMovie(response))
-        }
-
-    }, [])
+        fetch(`https://api.themoviedb.org/3/movie/${props.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
+            .then(response => response.json())
+            .then(response => setMovie(response))
+    }, [props.id])
     function handleRuntime(num) {
         if (num < 60)
             return (`${num}m`)
@@ -22,12 +20,19 @@ function WatchlistCard(props) {
 
     const component = () => {
         const genresName = movie.genres.map(genre => { return genre.name })
+        const imgUrl = movie.poster_path
+            ? `https://www.themoviedb.org/t/p/w500/${movie.poster_path}`
+            : process.env.PUBLIC_URL + "/placeholder.png"
         return (
             <Card id="watchlistCard"
                 className="mt-2 flex-row ">
                 <Link className="align-self-center" to={`details-${movie.id}`}>
-                    <Card.Img className=" watchlistImg "
-                        src={`https://www.themoviedb.org/t/p/w500/${movie.poster_path}`} ></Card.Img>
+                    <LazyLoadImage
+                        placeholderSrc={process.env.PUBLIC_URL + "/placeholder.png"}
+                        effect="blur"
+                        className=" watchlistImg "
+                        alt={movie.original_title + " poster"}
+                        src={imgUrl} ></LazyLoadImage>
                 </Link>
                 <Card.Body className="" >
                     <Link className="nav-link text-dark p-0" to={`details-${movie.id}`}>
@@ -56,7 +61,7 @@ function WatchlistCard(props) {
     }
     return (
         <Container>
-            { movie ? component() : "Loading"}
+            { movie ? component() : ""}
 
         </Container>
     )

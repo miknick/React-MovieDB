@@ -1,7 +1,8 @@
-import { getByPlaceholderText } from '@testing-library/dom'
 import React, { useEffect, useState } from 'react'
 import { Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { LazyLoadImage } from "react-lazy-load-image-component"
+import 'react-lazy-load-image-component/src/effects/blur.css';
 function Trending(props) {
     const [trendingMovies, setTrendingMovies] = useState()
     const randomIndex = Math.floor(Math.random() * 20)
@@ -21,15 +22,22 @@ function Trending(props) {
 
     }, [trendingMovies])
     const component = trendingMovies && trendingMovies.map((movie) => {
-        const imgUrl = ("https://image.tmdb.org/t/p/w200/" + movie.poster_path)
+        const imgUrl = movie.poster_path
+            ? `https://www.themoviedb.org/t/p/w500/${movie.poster_path}`
+            : process.env.PUBLIC_URL + "/placeholder.png"
 
         return (
             <div className="mr-2 text-center " key={movie.id} >
                 <Link to={{
                     pathname: `/details-${movie.id}`,
                 }}>
-                    <img className="homeCard rounded" src={imgUrl ? imgUrl : "placeholder.png"}
-                        alt={movie.original_title}></img>
+                    <LazyLoadImage
+                        effect="blur"
+                        className="homeCard rounded"
+                        src={imgUrl}
+                        placeholderSrc={process.env.PUBLIC_URL + "/placeholder.png"}
+                        alt={movie.original_title}></LazyLoadImage>
+
                 </Link>
                 <h6>{movie.vote_average === 0 ? movie.release_date
                     : movie.vote_average}</h6>

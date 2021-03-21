@@ -53,8 +53,7 @@ function StarRating(props) {
                                         }
                                     })
                                     if (defaultStar) {
-                                        const checkedStar = document.
-                                            getElementById(`rating-${defaultStar}`)
+                                        const checkedStar = document.getElementById(`rating-${defaultStar}`)
                                         checkedStar.setAttribute("checked", "checked")
 
                                     }
